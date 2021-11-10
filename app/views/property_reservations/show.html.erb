@@ -9,4 +9,7 @@
   <dt>Valor total</dt>
   <dd><%= number_to_currency @property_reservation.total_value %></dd>
 </dl>
-<%= link_to 'Cancelar Reserva', cancel_property_reservation_path, method: :post, id:"cancel_reservation" %>
+
+<% unless @property_reservation.property.property_owner == current_property_owner %>
+  <%= link_to 'Cancelar Reserva', cancel_property_reservation_path, method: :post, id:"cancel_reservation" %>
+<% end %>

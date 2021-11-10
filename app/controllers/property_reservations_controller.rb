@@ -1,4 +1,6 @@
 class PropertyReservationsController < ApplicationController
+  before_action :authenticate_user!, only: %i[cancel]
+
   def show
     @property_reservation = PropertyReservation.find(params[:id])
   end
@@ -24,9 +26,8 @@ class PropertyReservationsController < ApplicationController
   def cancel
     @property_reservation = PropertyReservation.find(params[:id])
     @property_reservation.canceled!
-    @property_reservation.save
-    flash[:notice] = 'Reserva cancelada'
-    redirect_to @property_reservation.property
+    
+    redirect_to @property_reservation.property, notice: 'Reserva cancelada'
   end
 
   private
